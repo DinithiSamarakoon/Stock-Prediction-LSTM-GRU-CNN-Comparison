@@ -41,53 +41,50 @@ The models are trained on historical stock data from 2015-2024 and evaluated usi
 
 ## 🏗️ Model Architectures
 
-### LSTM Model
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
-┃ Layer (type) ┃ Output Shape ┃ Param # ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
-│ lstm (LSTM) │ (None, 60, 64) │ 16,896 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dropout (Dropout) │ (None, 60, 64) │ 0 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ lstm_1 (LSTM) │ (None, 64) │ 33,024 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dropout_1 (Dropout) │ (None, 64) │ 0 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dense (Dense) │ (None, 1) │ 65 │
-└─────────────────────────────────┴────────────────────────┴───────────────┘
-Total params: 49,985 (195.25 KB)
+## Deep Learning Model Architectures
 
-### GRU Model
+### 1. LSTM Model
 
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
-┃ Layer (type) ┃ Output Shape ┃ Param # ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
-│ gru (GRU) │ (None, 60, 64) │ 12,864 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dropout_2 (Dropout) │ (None, 60, 64) │ 0 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ gru_1 (GRU) │ (None, 64) │ 24,960 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dropout_3 (Dropout) │ (None, 64) │ 0 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dense_1 (Dense) │ (None, 1) │ 65 │
-└─────────────────────────────────┴────────────────────────┴───────────────┘
-Total params: 37,889 (148.00 KB)
+The LSTM (Long Short-Term Memory) model was used to capture long-term dependencies and sequential patterns in stock price data.
 
+| Layer | Output Shape | Parameters |
+|---|---|---|
+| LSTM | (None, 60, 64) | 16,896 |
+| Dropout | (None, 60, 64) | 0 |
+| LSTM | (None, 64) | 33,024 |
+| Dropout | (None, 64) | 0 |
+| Dense | (None, 1) | 65 |
 
-### CNN+LSTM Model
+**Total Parameters:** 49,985 (195.25 KB)
 
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
-┃ Layer (type) ┃ Output Shape ┃ Param # ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
-│ conv1d (Conv1D) │ (None, 58, 64) │ 256 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ max_pooling1d (MaxPooling1D) │ (None, 29, 64) │ 0 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ lstm_2 (LSTM) │ (None, 64) │ 33,024 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dropout_4 (Dropout) │ (None, 64) │ 0 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ dense_2 (Dense) │ (None, 1) │ 65 │
-└─────────────────────────────────┴────────────────────────┴───────────────┘
-Total params: 33,345 (130.25 KB)
+---
+
+### 2. GRU Model
+
+The GRU (Gated Recurrent Unit) model was implemented as a lightweight alternative to LSTM with fewer parameters and faster training capability.
+
+| Layer | Output Shape | Parameters |
+|---|---|---|
+| GRU | (None, 60, 64) | 12,864 |
+| Dropout | (None, 60, 64) | 0 |
+| GRU | (None, 64) | 24,960 |
+| Dropout | (None, 64) | 0 |
+| Dense | (None, 1) | 65 |
+
+**Total Parameters:** 37,889 (148.00 KB)
+
+---
+
+### 3. CNN + LSTM Model
+
+The CNN + LSTM hybrid model combines convolutional feature extraction with sequential learning to improve stock trend prediction.
+
+| Layer | Output Shape | Parameters |
+|---|---|---|
+| Conv1D | (None, 58, 64) | 256 |
+| MaxPooling1D | (None, 29, 64) | 0 |
+| LSTM | (None, 64) | 33,024 |
+| Dropout | (None, 64) | 0 |
+| Dense | (None, 1) | 65 |
+
+**Total Parameters:** 33,345 (130.25 KB)
